@@ -10,35 +10,48 @@ Laporan ini disusun sebagai bagian dari praktikum analisis data untuk mengidenti
 
 ## 🎯 1. Business Question
 Analisis ini bertujuan untuk menjawab permasalahan bisnis berikut:
-* [cite_start]**Produk Underperformer:** Mengidentifikasi produk dengan harga tinggi namun volume penjualan rendah[cite: 86, 87].
-* [cite_start]**Segmentasi Pelanggan:** Menentukan pelanggan prioritas untuk program loyalitas menggunakan metode **RFM (Recency, Frequency, Monetary)**[cite: 96, 102].
-* [cite_start]**Efisiensi Kategori:** Mengevaluasi perbandingan pendapatan kategori terhadap anggaran iklan yang dihabiskan[cite: 103, 106].
-* [cite_start]**Analisis Prediktif:** Menguji pengaruh biaya iklan terhadap total penjualan melalui model regresi linear[cite: 109, 140].
+* [cite_start]**Produk Underperformer:** Mengidentifikasi produk dengan harga tinggi namun volume penjualan rendah[cite: 1].
+* [cite_start]**Segmentasi Pelanggan:** Menentukan pelanggan prioritas untuk program loyalitas menggunakan metode **RFM (Recency, Frequency, Monetary)**[cite: 1].
+* [cite_start]**Efisiensi Kategori:** Mengevaluasi perbandingan pendapatan kategori terhadap anggaran iklan yang dihabiskan[cite: 1].
+* [cite_start]**Analisis Prediktif:** Menguji pengaruh biaya iklan terhadap total penjualan melalui model regresi linear[cite: 1].
 
 ---
 
 ## 🛠️ 2. Data Wrangling
-[cite_start]Tahapan pembersihan data dilakukan untuk memastikan validitas hasil analisis[cite: 58, 59]:
-1. [cite_start]**Inspeksi Data:** Mengecek tipe data dan nilai yang hilang (*missing values*) menggunakan `df.info()`[cite: 60, 61].
-2. [cite_start]**Pembersihan Anomali:** Menghapus entri dengan harga negatif atau nol (`Price > 0`)[cite: 62].
-3. [cite_start]**Standarisasi Waktu:** Mengonversi kolom `Order_Date` menjadi format *datetime* untuk analisis tren dan waktu[cite: 63].
+Tahapan pembersihan data dilakukan untuk memastikan validitas hasil analisis:
+1. [cite_start]**Inspeksi Data:** Mengecek tipe data dan nilai yang hilang menggunakan `df.info()`[cite: 1].
+2. [cite_start]**Pembersihan Anomali:** Menghapus entri dengan harga negatif atau nol (`Price > 0`)[cite: 1].
+3. [cite_start]**Standarisasi Waktu:** Mengonversi kolom `Order_Date` menjadi format *datetime* untuk analisis tren dan waktu[cite: 1].
 
 ---
 
 ## 📈 3. Insights (Temuan Utama)
-* [cite_start]**Visualisasi Tren:** Penggunaan *Line Chart* menunjukkan pola fluktuasi penjualan bulanan yang membantu prediksi stok di masa depan[cite: 66, 71].
-* [cite_start]**Korelasi Antar Variabel:** Berdasarkan *Heatmap*, dapat dilihat sejauh mana biaya iklan dan diskon memengaruhi angka penjualan[cite: 74, 77].
-* [cite_start]**Peta Produk:** Melalui *Scatter Plot*, ditemukan produk yang membebani arus kas (Harga > Rata-rata, Kuantitas Rendah)[cite: 88, 90].
-* [cite_start]**Segmentasi Loyalitas:** Pelanggan dengan skor RFM tertinggi diidentifikasi sebagai target utama retensi[cite: 115, 116].
+
+### A. Tren Penjualan Bulanan
+Berdasarkan grafik tren di bawah ini, kita dapat melihat pola fluktuasi penjualan sepanjang tahun 2023. Puncak penjualan tertinggi (peak season) terjadi pada bulan **Agustus**, yang mencapai lebih dari 80 juta unit penjualan.
+
+<img src="Figure_2.png" width="400" alt="Tren Penjualan Bulanan">
+
+*(Catatan: Ganti URL gambar di atas dengan path file gambar Anda di repository, contoh: ./images/tren_penjualan.png)*
+
+### B. Korelasi Antar Variabel
+Melalui *Heatmap* korelasi, ditemukan beberapa poin penting:
+* **Total Sales & Price:** Memiliki korelasi positif yang cukup kuat (**0.69**), menunjukkan harga produk berkontribusi signifikan terhadap nilai total penjualan.
+* **Total Sales & Quantity:** Memiliki korelasi positif sebesar **0.64**.
+* **Ad Budget:** Menariknya, anggaran iklan menunjukkan korelasi yang sangat rendah terhadap total penjualan (**0.055**) pada dataset ini, yang mengindikasikan perlunya optimasi strategi iklan.
+
+<img src="Figure_1.png" width="400" alt="Peta Korelasi">
+
+*(Catatan: Ganti URL gambar di atas dengan path file gambar Anda di repository, contoh: ./images/heatmap_korelasi.png)*
 
 ---
 
 ## 💡 4. Recommendation
 Berdasarkan hasil analisis, langkah strategis yang direkomendasikan adalah:
-* [cite_start]**Optimasi Stok:** Melakukan penyesuaian harga atau promosi cuci gudang untuk kategori produk *underperformer*[cite: 88, 95].
-* [cite_start]**Program Loyalitas:** Memberikan voucher eksklusif kepada pelanggan di segmen skor RFM tertinggi (misal: R_Score 5, F_Score 5, M_Score 5)[cite: 102, 134].
-* [cite_start]**Alokasi Anggaran:** Mengalihkan anggaran iklan dari kategori yang tidak efisien ke kategori dengan kontribusi pendapatan lebih besar[cite: 107].
-* [cite_start]**Strategi Pemasaran:** Jika model regresi menunjukkan akurasi tinggi, perusahaan dapat meningkatkan `Ad_Budget` secara terukur untuk menaikkan `Total_Sales`[cite: 158, 159].
+* [cite_start]**Optimasi Stok:** Melakukan penyesuaian harga atau promosi untuk kategori produk *underperformer*[cite: 1].
+* [cite_start]**Program Loyalitas:** Memberikan voucher eksklusif kepada pelanggan di segmen skor RFM tertinggi (R5, F5, M5)[cite: 1].
+* **Evaluasi Iklan:** Mengingat korelasi iklan yang rendah, perusahaan perlu melakukan audit kreatif atau target audiens agar `Ad_Budget` memberikan dampak lebih besar pada `Total_Sales`.
+* **Strategi Peak Season:** Mempersiapkan stok dan kampanye lebih besar menjelang bulan Agustus berdasarkan data tren sejarah.
 
 ---
 
@@ -46,7 +59,7 @@ Berdasarkan hasil analisis, langkah strategis yang direkomendasikan adalah:
 
 ### Analisis RFM
 ```python
-# Agregasi data RFM
+# Agregasi data RFM [cite: 1]
 rfm = df.groupby('CustomerID').agg({
     'Order_Date': lambda x: (snapshot_date - x.max()).days, # Recency
     'Order_ID': 'count',                                   # Frequency
